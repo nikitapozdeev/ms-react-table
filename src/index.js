@@ -32,13 +32,33 @@ const demoColumns = [
   { title: 'Ip Address', accessor: 'ip_address' }
 ]
 
+/* custom head cell rendering overrides default */
+const onHeaderCellRender = ({ column, index }) => (
+  <th key={index}>custom_{column.title}</th>
+)
+
+/* custom empty component */
+const onEmptyData = () => (
+  <div>
+    <b>
+      <i>Custom empty component</i>
+    </b>
+  </div>
+)
+
+const tableCaption = () => (
+  <h3><i>this is table caption</i></h3>
+)
+
 const tableExample = (
   <div className="App">
     <header className="App-header">
       <Table
         data={demoData}
         columns={demoColumns}
-        caption={'this is table caption'}
+        caption={tableCaption}
+        onEmptyData={onEmptyData}
+        onHeaderCellRender={onHeaderCellRender}
       />
     </header>
   </div>

@@ -1,28 +1,24 @@
 import React from 'react'
+import HeaderCell from './HeaderCell'
 
 class TableHeader extends React.Component {
-  handleOnClick(evt) {
-    console.log(evt)
-  }
-
   render () {
-    const { columns } = this.props
+    const {
+      columns,
+      onHeaderCellRender
+    } = this.props
+
     return <>
       <thead>
         <tr>
-          {
-            columns.map((column, index) => {
-              return (
-                <th
-                  key={`ms-table-col-${index}`}
-                  id={`ms-table-col-${index}`}
-                  onClick={event => this.handleOnClick(event)}
-                >
-                  {column.title}
-                </th>
-              )
-            })
-          }
+          {columns.map((column, index) => (
+            /* custom header cell rendering */
+            onHeaderCellRender ? onHeaderCellRender({ column, index })
+              : <HeaderCell
+                key={`ms-table-col-${index}`}
+                column={column}
+              />
+          ))}
         </tr>
       </thead>
     </>
